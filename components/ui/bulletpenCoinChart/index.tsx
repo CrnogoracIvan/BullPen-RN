@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Dimensions } from 'react-native';
 import { LineChart } from 'react-native-gifted-charts';
 
 const CoinChart = () => {
@@ -11,17 +11,17 @@ const CoinChart = () => {
         { value: 148.12, date: '2023-09-01' },
     ];
 
+    const paddingForRemoval= 85
+    const screenWidth = Dimensions.get('window').width-paddingForRemoval;
+    const spacing = (screenWidth+paddingForRemoval) / (ptData.length);
+
     return (
-        <View
-            style={{
-                width: '100%',
-                backgroundColor: 'transparent',
-            }}>
+        <View style={{ width: '100%', backgroundColor: 'transparent' }}>
             <LineChart
                 areaChart
                 data={ptData}
                 rotateLabel
-                width={300}
+                width={screenWidth} // Use screen width
                 hideDataPoints
                 color="#00ff83"
                 thickness={3}
@@ -29,43 +29,60 @@ const CoinChart = () => {
                 endFillColor="rgba(20,85,81,0.01)"
                 startOpacity={0.9}
                 endOpacity={0.2}
-                spacing={70}
+                spacing={spacing} // Use calculated spacing
+                initialSpacing={0} // No extra space at the start
+                endSpacing={0} // No extra space at the end
                 noOfSections={6}
                 maxValue={300}
-                yAxisColor="white"
-                yAxisThickness={0}
+                yAxisColor="black" // Show y-axis
+                yAxisThickness={1} // Show y-axis
+                yAxisTextStyle={{ color: 'white' }} // Show y-axis labels
+                xAxisColor="black" // Show x-axis
+                xAxisThickness={1} // Show x-axis
+                xAxisLabelTextStyle={{ color: 'white' }} // Show x-axis labels
                 rulesType="solid"
                 rulesColor="gray"
-                yAxisTextStyle={{ color: 'gray' }}
-                yAxisSide="right"
-                xAxisColor="lightgray"
                 pointerConfig={{
                     pointerStripHeight: 160,
                     pointerStripColor: 'lightgray',
                     pointerStripWidth: 2,
                     pointerColor: 'lightgray',
                     radius: 6,
-                    pointerLabelWidth: 100,
-                    pointerLabelHeight: 90,
+                    pointerLabelWidth: 120,
+                    pointerLabelHeight: 100,
                     activatePointersOnLongPress: true,
-                    autoAdjustPointerLabelPosition: false,
+                    autoAdjustPointerLabelPosition: true,
                     pointerLabelComponent: items => {
+                        // Check if this is the last data point
+                        const isLastItem = items[0].date === ptData[ptData.length - 1].date;
+
                         return (
                             <View
                                 style={{
-                                    height: 90,
-                                    width: 100,
+                                    height: 100,
+                                    width: 120,
                                     justifyContent: 'center',
-                                    // marginTop: -10,
-                                    // marginLeft: -50,
+                                    alignItems: 'center',
+                                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                                    borderRadius: 10,
+                                    padding: 10,
+                                    marginLeft: isLastItem ? -80 : 0, // Shift tooltip left for the last item
                                 }}>
-                                <Text style={{ color: 'white', fontSize: 14, marginBottom: 6, textAlign: 'center' }}>
+                                {/* Date */}
+                                <Text style={{ color: 'white', fontSize: 12, marginBottom: 6, textAlign: 'center' }}>
                                     {items[0].date}
                                 </Text>
 
-                                <View style={{ paddingHorizontal: 14, paddingVertical: 6, borderRadius: 16, backgroundColor: 'white' }}>
-                                    <Text style={{ fontWeight: 'bold', textAlign: 'center' }}>
-                                        {'$' + items[0].value + '.0'}
+                                {/* Value */}
+                                <View
+                                    style={{
+                                        paddingHorizontal: 10,
+                                        paddingVertical: 6,
+                                        borderRadius: 8,
+                                        backgroundColor: '#00ff83',
+                                    }}>
+                                    <Text style={{ fontWeight: 'bold', textAlign: 'center', color: 'black' }}>
+                                        {'$' + items[0].value.toFixed(2)}
                                     </Text>
                                 </View>
                             </View>
