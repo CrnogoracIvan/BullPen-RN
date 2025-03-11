@@ -18,7 +18,7 @@ export function BullPenSearchField({searchText, onChangeText}: IProps) {
             </InputSlot>
             <InputField
                 value={searchText}
-                placeholder="Search Solana address here..."
+                placeholder="Search here..."
                 onChangeText={(newText) => onChangeText(newText)}
                 className="text-white"
             />
