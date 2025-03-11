@@ -7,6 +7,8 @@ import {BullPenTokenListEmptyState} from "../components/ui/bullpenTokenListEmpty
 import {BullPenSearchField} from "@/components/ui/bullpenSearchField";
 import {BullPenSkeleton} from "@/components/ui/bullpenSkeleton";
 import {BullPenErrorToast} from "@/components/ui/bullPenErrorToast";
+import {LineChart} from "react-native-gifted-charts";
+import CoinChart from "@/components/ui/bulletpenCoinChart";
 
 
 export default function Index() {
@@ -95,8 +97,13 @@ export default function Index() {
         </View>
     )
 
+    const data=[ {value:50}, {value:80}, {value:90}, {value:70} ]
+
   return (
     <View className={'flex flex-1 flex-col items-center justify-start'}>
+
+       <CoinChart/>
+
         <BullPenSearchField searchText={searchText} onChangeText={setSearchText} />
         {isLoading ? <BullPenSkeleton/> : renderListWrapper()}
     </View>
