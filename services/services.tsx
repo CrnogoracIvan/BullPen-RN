@@ -27,7 +27,7 @@ export async function getTokenHistoryPriceService(address: string) {
     try {
        const {todayUnix, sixMonthsAgoUnix} = getUnixValues()
         console.log(todayUnix, sixMonthsAgoUnix)
-        const response = await fetch(`https://public-api.birdeye.so/defi/history_price?address=So11111111111111111111111111111111111111112&address_type=token&type=1M&time_from=${sixMonthsAgoUnix}&time_to=${todayUnix}`, {
+        const response = await fetch(`https://public-api.birdeye.so/defi/history_price?address=So11111111111111111111111111111111111111112&address_type=token&type=1D&time_from=${sixMonthsAgoUnix}&time_to=${todayUnix}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
