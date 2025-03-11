@@ -1,33 +1,53 @@
-import {Pressable, ScrollView, Text, View} from "react-native";
-import {Input, InputField, InputIcon, InputSlot} from "@/components/ui/input"
-import {CloseIcon, Icon, SearchIcon} from "@/components/ui/icon";
+import {RefreshControl, ScrollView, Text, View} from "react-native";
 import {useEffect, useState} from "react";
 import {getTokenListService} from "@/services/services";
 import {ITokenListItem} from "@/utils/types";
 import {BullPenTokenCard} from "@/components/ui/bullpenTokenCard";
-import {BullpenTokenListDefaultEmptyState} from "@/components/ui/bullpenTokenListDefaultEmptyState";
+import {BullPenTokenListEmptyState} from "../components/ui/bullpenTokenListEmptyState";
+import {BullPenSearchField} from "@/components/ui/bullpenSearchField";
+import {BullPenSkeleton} from "@/components/ui/bullpenSkeleton";
+import {BullPenErrorToast} from "@/components/ui/bullPenErrorToast";
 
 
 export default function Index() {
+    const [isLoading, setIsLoading] = useState(false);
     const [tokenList, setTokenList] = useState([]);
     const [filteredTokenList, setFilteredTokenList] = useState([]);
     const [searchText, setSearchText] = useState("");
     const [searchInProgress, setSearchInProgress] = useState(false);
+    const [errorMessage, setErrorMessage] = useState<string|undefined>(undefined);
 
+    const { showToast } = BullPenErrorToast({title: "Error", message: errorMessage});
 
-    useEffect(() => {
-        const fetchData = async () => {
-        const {data} = await getTokenListService()
-            console.log("Fetching data", data)
+    const fetchData = async () => {
+        try {
+            setIsLoading(true);
+            const {data} = await getTokenListService()
             if (!data) {
+                setIsLoading(false);
                 return
             }
             setTokenList(data.tokens);
             setFilteredTokenList([])
+            setIsLoading(false);
+
+        } catch (e) {
+            // @ts-ignore
+            setErrorMessage(e.message);
+            setIsLoading(false);
         }
+    }
+
+
+    useEffect(() => {
         fetchData()
     }, []);
 
+    useEffect(() => {
+        if (errorMessage){
+            showToast()
+        }
+    }, [errorMessage]);
 
     useEffect(() => {
         const filteredList = tokenList.filter((token:ITokenListItem)=>(token.address.includes(searchText)));
@@ -44,35 +64,23 @@ export default function Index() {
         setFilteredTokenList(filteredList);
     }, [searchText, tokenList]);
 
-
-    const renderSearchField = () => {
-        return (
-            <Input
-                size="md"
-                className={`p-2 bg-primaryCardBackground border-primaryBorder mb-2 h-16 rounded-xl`}
-            >
-                <InputSlot>
-                    <InputIcon as={SearchIcon} className={'text-gray-50 '} size="md" />
-                </InputSlot>
-                <InputField
-                    value={searchText}
-                    placeholder="Search Solana address here..."
-                    onChangeText={(newText) => setSearchText(newText)}
-                    className="text-white"
-                />
-                <InputSlot>
-                    <Pressable onPress={() => setSearchText("")}>
-                        <InputIcon as={CloseIcon} className={'text-gray-50'} size="md" />
-                    </Pressable>
-                </InputSlot>
-            </Input>
-        );
-    };
+    const renderRefreshControl = () => (
+        <RefreshControl
+            refreshing={isLoading}
+            onRefresh={fetchData}
+            tintColor="#5efeb3"
+            title="Refreshing..."
+            titleColor="#5efeb3"
+        />
+    )
 
     const renderList = () => (
-        <ScrollView className={'overflow-hidden'}>
+        <ScrollView
+            className={'overflow-hidden'}
+            refreshControl={renderRefreshControl()}
+        >
             {filteredTokenList.length === 0
-                ? <BullpenTokenListDefaultEmptyState searchInProgress={false}/>
+                ? <BullPenTokenListEmptyState searchInProgress={false}/>
                 : filteredTokenList.map((token: ITokenListItem) => (<BullPenTokenCard key={token.address} token={token}/>))
             }
         </ScrollView>
@@ -81,17 +89,16 @@ export default function Index() {
     const renderListWrapper = () => (
         <View className={'flex flex-col flex-1 justify-center items-center'}>
             {searchInProgress
-                ? <BullpenTokenListDefaultEmptyState searchInProgress={searchInProgress}/>
+                ? <BullPenTokenListEmptyState searchInProgress={searchInProgress}/>
                 : renderList()
             }
         </View>
     )
 
-
   return (
-    <View className={'flex flex-1 flex-col items-center justify-center'}>
-        {renderSearchField()}
-        {renderListWrapper()}
+    <View className={'flex flex-1 flex-col items-center justify-start'}>
+        <BullPenSearchField searchText={searchText} onChangeText={setSearchText} />
+        {isLoading ? <BullPenSkeleton/> : renderListWrapper()}
     </View>
   );
 }

@@ -5,7 +5,7 @@ interface IProps {
     searchInProgress?: boolean;
 }
 
-export function BullpenTokenListDefaultEmptyState({searchInProgress}: IProps) {
+export function BullPenTokenListEmptyState({searchInProgress}: IProps) {
     return (
         <View className={'flex flex-col flex-1 justify-center items-center'}>
             <View className={'flex flex-col items-center h-1/2'}>
