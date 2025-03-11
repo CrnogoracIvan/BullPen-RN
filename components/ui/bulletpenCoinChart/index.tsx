@@ -34,10 +34,10 @@ const CoinChart = () => {
                 endSpacing={0} // No extra space at the end
                 noOfSections={6}
                 maxValue={300}
-                yAxisColor="black" // Show y-axis
+                yAxisColor="gray" // Show y-axis
                 yAxisThickness={1} // Show y-axis
                 yAxisTextStyle={{ color: 'white' }} // Show y-axis labels
-                xAxisColor="black" // Show x-axis
+                xAxisColor="gray" // Show x-axis
                 xAxisThickness={1} // Show x-axis
                 xAxisLabelTextStyle={{ color: 'white' }} // Show x-axis labels
                 rulesType="solid"
@@ -45,7 +45,7 @@ const CoinChart = () => {
                 pointerConfig={{
                     pointerStripHeight: 160,
                     pointerStripColor: 'lightgray',
-                    pointerStripWidth: 2,
+                    pointerStripWidth: 1,
                     pointerColor: 'lightgray',
                     radius: 6,
                     pointerLabelWidth: 120,
@@ -53,7 +53,6 @@ const CoinChart = () => {
                     activatePointersOnLongPress: true,
                     autoAdjustPointerLabelPosition: true,
                     pointerLabelComponent: items => {
-                        // Check if this is the last data point
                         const isLastItem = items[0].date === ptData[ptData.length - 1].date;
 
                         return (
@@ -66,7 +65,7 @@ const CoinChart = () => {
                                     backgroundColor: 'rgba(0, 0, 0, 0.8)',
                                     borderRadius: 10,
                                     padding: 10,
-                                    marginLeft: isLastItem ? -80 : 0, // Shift tooltip left for the last item
+                                    marginLeft: isLastItem ? -80 : 0,
                                 }}>
                                 {/* Date */}
                                 <Text style={{ color: 'white', fontSize: 12, marginBottom: 6, textAlign: 'center' }}>
