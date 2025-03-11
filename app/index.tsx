@@ -1,26 +1,30 @@
 import { Text, View } from "react-native";
-import {Input, InputField, InputIcon} from "@/components/ui/input"
+import {Input, InputField, InputIcon, InputSlot} from "@/components/ui/input"
+import {SearchIcon} from "@/components/ui/icon";
+import {useEffect} from "react";
+import {getTokenListService} from "@/services/services";
 
 
 export default function Index() {
+
+    useEffect(() => {
+        const fetchData = async () => {
+        const data = await getTokenListService()
+        console.log(data)
+        }
+        fetchData()
+    }, []);
+
   return (
     <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
+        className={'flex flex-1 flex-col items-center justify-center'}
     >
       <Text>Edit app/index.tsx to edit this screen.</Text>
-        <Input
-            variant="outline"
-            size="md"
-            isDisabled={false}
-            isInvalid={false}
-            isReadOnly={false}
-        >
-            <InputIcon>{/* Some Icon Component */}</InputIcon>
-            <InputField placeholder="Enter Text here..." />
+        <Input variant="outline" size="md">
+            <InputSlot>
+                <InputIcon as={SearchIcon} color="black" size="md" />
+            </InputSlot>
+            <InputField placeholder="Search here..." />
         </Input>
     </View>
   );
