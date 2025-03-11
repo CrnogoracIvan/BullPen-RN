@@ -3,16 +3,16 @@ import {Input, InputField, InputIcon, InputSlot} from "@/components/ui/input"
 import {CloseIcon, Icon, SearchIcon} from "@/components/ui/icon";
 import {useEffect, useState} from "react";
 import {getTokenListService} from "@/services/services";
-import {Avatar, AvatarFallbackText, AvatarImage} from "@/components/ui/avatar";
-import {formatNumber} from "@/utils/utils";
 import {ITokenListItem} from "@/utils/types";
 import {BullPenTokenCard} from "@/components/ui/bullpenTokenCard";
+import {BullpenTokenListDefaultEmptyState} from "@/components/ui/bullpenTokenListDefaultEmptyState";
 
 
 export default function Index() {
     const [tokenList, setTokenList] = useState([]);
-    const [filteredTokeList, setFilteredTokenList] = useState([]);
+    const [filteredTokenList, setFilteredTokenList] = useState([]);
     const [searchText, setSearchText] = useState("");
+    const [searchInProgress, setSearchInProgress] = useState(false);
 
 
     useEffect(() => {
@@ -23,6 +23,7 @@ export default function Index() {
                 return
             }
             setTokenList(data.tokens);
+            setFilteredTokenList([])
         }
         fetchData()
     }, []);
@@ -30,13 +31,17 @@ export default function Index() {
 
     useEffect(() => {
         const filteredList = tokenList.filter((token:ITokenListItem)=>(token.address.includes(searchText)));
-        console.log('search text: ', searchText);
-        console.log('filteredList: ', filteredList);
-        if (filteredList.length) {
-            setFilteredTokenList(filteredList);
-        } else {
-            setFilteredTokenList(tokenList);
+        const isSearchInProgress = searchText.length > 0;
+
+        if (!isSearchInProgress) {
+            setFilteredTokenList([]);
+            setSearchInProgress(false);
+            return
         }
+        if (filteredList.length === 0 && searchText.length !== 0) {
+            setSearchInProgress(true);
+        }
+        setFilteredTokenList(filteredList);
     }, [searchText, tokenList]);
 
 
@@ -64,26 +69,29 @@ export default function Index() {
         );
     };
 
+    const renderList = () => (
+        <ScrollView className={'overflow-hidden'}>
+            {filteredTokenList.length === 0
+                ? <BullpenTokenListDefaultEmptyState searchInProgress={false}/>
+                : filteredTokenList.map((token: ITokenListItem) => (<BullPenTokenCard key={token.address} token={token}/>))
+            }
+        </ScrollView>
+    )
 
-    const renderEmptyState = () => (
-        <View>
-            <Icon as={SearchIcon} size="lg" color="blue" />
-            <Text>Search Solana based address</Text>
+    const renderListWrapper = () => (
+        <View className={'flex flex-col flex-1 justify-center items-center'}>
+            {searchInProgress
+                ? <BullpenTokenListDefaultEmptyState searchInProgress={searchInProgress}/>
+                : renderList()
+            }
         </View>
     )
 
-    const renderList = () => (
-        <ScrollView className={'overflow-hidden'}>
-            {filteredTokeList.length && filteredTokeList.map((token: ITokenListItem) => (
-                <BullPenTokenCard  key={token.address} token={token}/>
-            ))}
-        </ScrollView>
-    )
 
   return (
     <View className={'flex flex-1 flex-col items-center justify-center'}>
         {renderSearchField()}
-        {filteredTokeList.length ? renderList() : renderEmptyState()}
+        {renderListWrapper()}
     </View>
   );
 }
