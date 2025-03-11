@@ -14,6 +14,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        primaryGreen: '#5efeb3',
+        primaryBackground: '#05121a',
+        primaryCardBackground: '#0b1e2c',
+        primaryBorder: '#0e2331',
+        secondaryBorder: '#173347',
         primary: {
           0: 'rgb(var(--color-primary-0)/<alpha-value>)',
           50: 'rgb(var(--color-primary-50)/<alpha-value>)',

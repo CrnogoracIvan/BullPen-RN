@@ -7,9 +7,10 @@ export default function RootLayout() {
   return <GluestackUIProvider mode="light">
     <Stack
       screenOptions={{
-        headerStyle: { backgroundColor: "#000" }, // Black header
-        headerTintColor: "#fff", // White text/icons
-        headerTitle: 'My application',
+          contentStyle: { backgroundColor: "#05121a",padding:16 },
+        headerStyle: { backgroundColor: "#05121a" },
+        headerTintColor: "#fff",
+        headerTitle: 'BullPen app',
       }}
   /></GluestackUIProvider>;
 }
