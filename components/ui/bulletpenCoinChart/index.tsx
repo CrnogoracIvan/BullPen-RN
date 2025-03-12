@@ -30,7 +30,7 @@ const BullPenCoinChart = ({ptData}:IProps) => {
                 spacing={spacing}
                 initialSpacing={0}
                 endSpacing={0}
-                noOfSections={6}
+                noOfSections={8}
                 maxValue={400}
                 yAxisColor="gray"
                 yAxisThickness={1}
