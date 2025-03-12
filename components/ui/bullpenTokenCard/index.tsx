@@ -88,12 +88,14 @@ export function BullPenTokenCard({ token }: IProps): JSX.Element {
         <>
             <Text className={'text-lg text-white font-bold'}>${formatNumber(token.v24hUSD)}</Text>
             {token?.v24hChangePercent && (
-                <Text className={`flex flex-row text-xs text-gray-400`}>
-                    24h
-                    <Text className={`ml-2 ${token.v24hChangePercent > 0 ? 'text-primaryGreen' : 'text-red-600'}`}>
+                <View className={`flex flex-row text-xs`}>
+                    <Text className={'text-gray-400 mr-2 text-xs'}>
+                        24h
+                    </Text>
+                    <Text className={`${token.v24hChangePercent > 0 ? 'text-primaryGreen' : 'text-red-600'} text-xs`}>
                         {token?.v24hChangePercent?.toFixed(1)}%
                     </Text>
-                </Text>
+                </View>
             )}
         </>
     );
