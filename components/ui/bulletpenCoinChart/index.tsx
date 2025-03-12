@@ -11,10 +11,10 @@ interface IProps {
 const BullPenCoinChart = ({ptData}:IProps) => {
     const paddingForRemoval= 80
     const screenWidth = Dimensions.get('window').width-paddingForRemoval;
-    const spacing = (screenWidth+paddingForRemoval) / (ptData.length);
+    const spacing = (screenWidth+paddingForRemoval) / (245);
 
     return (
-        <View style={{ width: '100%', backgroundColor: 'transparent', overflow:'hidden' }}>
+        <View style={{ width: screenWidth, backgroundColor: 'transparent', overflow:'hidden' }}>
             <LineChart
                 areaChart
                 data={ptData}
@@ -31,7 +31,7 @@ const BullPenCoinChart = ({ptData}:IProps) => {
                 initialSpacing={0}
                 endSpacing={0}
                 noOfSections={6}
-                maxValue={300}
+                maxValue={400}
                 yAxisColor="gray"
                 yAxisThickness={1}
                 yAxisTextStyle={{ color: 'white' }}
@@ -41,13 +41,13 @@ const BullPenCoinChart = ({ptData}:IProps) => {
                 rulesType="solid"
                 rulesColor="gray"
                 pointerConfig={{
-                    pointerStripHeight: 160,
+                    pointerStripHeight: 200,
                     pointerStripColor: 'lightgray',
-                    pointerStripWidth: 1,
+                    pointerStripWidth: 0.5,
                     pointerColor: 'lightgray',
                     radius: 6,
                     pointerLabelWidth: 120,
-                    pointerLabelHeight: 100,
+                    pointerLabelHeight: 80,
                     activatePointersOnLongPress: true,
                     autoAdjustPointerLabelPosition: true,
                     pointerLabelComponent: items => {
@@ -55,13 +55,13 @@ const BullPenCoinChart = ({ptData}:IProps) => {
                         return (
                             <View
                                 style={{
-                                    height: 100,
+                                    height: 80,
                                     width: 120,
                                     justifyContent: 'center',
                                     alignItems: 'center',
                                     backgroundColor: '#05121a',
                                     borderRadius: 10,
-                                    padding: 10,
+                                    padding: 5,
                                     marginLeft: isLastItem ? -80 : 0,
                                 }}>
                                 {/* Date */}

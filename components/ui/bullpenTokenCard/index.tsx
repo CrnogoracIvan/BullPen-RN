@@ -5,7 +5,7 @@ import { formatNumber } from "@/utils/utils";
 import { ITokenListItemDTO } from "@/utils/types";
 import BullPenCoinChart from "@/components/ui/bulletpenCoinChart";
 import {getTokenHistoryPriceService} from "@/services/services";
-import {BullPenErrorToast} from "@/components/ui/bullPenErrorToast";
+import {BullPenErrorToast} from "../bullpenErrorToast";
 
 interface IProps {
     token: ITokenListItemDTO;

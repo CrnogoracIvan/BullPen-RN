@@ -6,7 +6,7 @@ import {BullPenTokenCard} from "@/components/ui/bullpenTokenCard";
 import {BullPenTokenListEmptyState} from "@/components/ui/bullpenTokenListEmptyState";
 import {BullPenSearchField} from "@/components/ui/bullpenSearchField";
 import {BullPenSkeleton} from "@/components/ui/bullpenSkeleton";
-import {BullPenErrorToast} from "@/components/ui/bullPenErrorToast";
+import {BullPenErrorToast} from "@/components/ui/bullpenErrorToast";
 
 
 export default function Index() {

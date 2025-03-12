@@ -1,4 +1,4 @@
-    import {View} from "react-native"; // Error icon
+    import {View} from "react-native";
     import {Toast, ToastDescription, ToastTitle, useToast} from "@/components/ui/toast";
     import {Icon, AlertCircleIcon} from "@/components/ui/icon";
 
