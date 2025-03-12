@@ -74,17 +74,28 @@ export default function Index() {
         />
     )
 
-    const renderList = () => (
-        <ScrollView
-            className={'overflow-hidden'}
-            refreshControl={renderRefreshControl()}
-        >
-            {filteredTokenList.length === 0
-                ? <BullPenTokenListEmptyState searchInProgress={false}/>
-                : filteredTokenList.map((token: ITokenListItemDTO) => (<BullPenTokenCard key={token.address} token={token}/>))
-            }
-        </ScrollView>
-    )
+    const renderList = () => {
+        if ( filteredTokenList.length === 0) {
+            return (
+                <View
+                className={'flex flex-col flex-1 justify-center items-center border-primaryGreen border h-52'}>
+                    <BullPenTokenListEmptyState searchInProgress={false}/>
+                </View>
+                )
+        }
+
+        return (
+            <ScrollView
+                className={'overflow-hidden'}
+                refreshControl={renderRefreshControl()}
+            >
+                {
+                     filteredTokenList.map((token: ITokenListItemDTO) => (
+                        <BullPenTokenCard key={token.address} token={token}/>))
+                }
+            </ScrollView>
+        )
+    }
 
     const renderListWrapper = () => (
         <View className={'flex flex-col flex-1 justify-center items-center'}>
