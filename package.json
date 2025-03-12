@@ -3,7 +3,7 @@
   "main": "expo-router/entry",
   "version": "1.0.0",
   "author": {
-    "name": "Ivan Crnogorac",
+    "name": "Ivan Crnogorac"
   },
   "scripts": {
     "start": "expo start",
