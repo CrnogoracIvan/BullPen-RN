@@ -3,12 +3,10 @@ import {useEffect, useState} from "react";
 import {getTokenListService} from "@/services/services";
 import {ITokenListItemDTO} from "@/utils/types";
 import {BullPenTokenCard} from "@/components/ui/bullpenTokenCard";
-import {BullPenTokenListEmptyState} from "../components/ui/bullpenTokenListEmptyState";
+import {BullPenTokenListEmptyState} from "@/components/ui/bullpenTokenListEmptyState";
 import {BullPenSearchField} from "@/components/ui/bullpenSearchField";
 import {BullPenSkeleton} from "@/components/ui/bullpenSkeleton";
 import {BullPenErrorToast} from "@/components/ui/bullPenErrorToast";
-import {LineChart} from "react-native-gifted-charts";
-import BullPenCoinChart from "@/components/ui/bulletpenCoinChart";
 
 
 export default function Index() {
