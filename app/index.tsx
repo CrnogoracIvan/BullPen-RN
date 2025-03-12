@@ -97,12 +97,8 @@ export default function Index() {
         </View>
     )
 
-    const data=[ {value:50}, {value:80}, {value:90}, {value:70} ]
-
   return (
     <View className={'flex flex-1 flex-col items-center justify-start'}>
-
-
         <BullPenSearchField searchText={searchText} onChangeText={setSearchText} />
         {isLoading ? <BullPenSkeleton/> : renderListWrapper()}
     </View>

@@ -12,7 +12,10 @@ export function BullPenTokenListEmptyState({searchInProgress}: IProps) {
                 <View className={'flex flex-col justify-center items-center bg-primaryGreen/10 w-20 h-20 rounded-3xl'}>
                     <Icon as={SearchIcon} className={'text-primaryGreen'} size="xl"  />
                 </View>
-                <Text className={'mt-8 text-xl text-white'}>Search <Text className={'font-extrabold text-primaryGreen'}>Solana</Text> based address...</Text>
+                <Text className={'mt-8 text-xl text-white text-center'}>
+                    Search Token by{'\n'}
+                    <Text className={'font-extrabold text-primaryGreen'}>Solana</Text> based address...
+                </Text>
                 {searchInProgress && <Text className={'mt-2 text-sm text-gray-400'}>No results found. Try searching something else...</Text>}
             </View>
         </View>
