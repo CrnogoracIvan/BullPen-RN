@@ -78,7 +78,7 @@ export default function Index() {
         if ( filteredTokenList.length === 0) {
             return (
                 <View
-                className={'flex flex-col flex-1 justify-center items-center border-primaryGreen border h-52'}>
+                className={'flex flex-col flex-1 justify-center items-center'}>
                     <BullPenTokenListEmptyState searchInProgress={false}/>
                 </View>
                 )
