@@ -1,4 +1,4 @@
-import {RefreshControl, ScrollView, Text, View} from "react-native";
+import {RefreshControl, ScrollView, View} from "react-native";
 import {useEffect, useState} from "react";
 import {getTokenListService} from "@/services/services";
 import {ITokenListItemDTO} from "@/utils/types";
