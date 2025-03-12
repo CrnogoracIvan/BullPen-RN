@@ -60,6 +60,7 @@ const BullPenCoinChart = ({ptData}:IProps) => {
                                     justifyContent: 'center',
                                     alignItems: 'center',
                                     backgroundColor: '#05121a',
+                                    opacity: 0.9,
                                     borderRadius: 10,
                                     padding: 5,
                                     marginLeft: isLastItem ? -80 : 0,
