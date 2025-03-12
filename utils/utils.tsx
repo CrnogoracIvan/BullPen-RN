@@ -13,3 +13,9 @@ export function getUnixValues() {
         sixMonthsAgoUnix,
     }
 }
+
+export function unixTimeToMonthYear  (timestamp: number)  {
+    const date = new Date(timestamp * 1000);
+    const options = { year: 'numeric', month: 'long', day: 'numeric' }
+    return date.toLocaleDateString('en-US', options)
+};

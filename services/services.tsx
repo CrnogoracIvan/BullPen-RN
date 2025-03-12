@@ -40,7 +40,7 @@ export async function getTokenHistoryPriceService(address: string) {
         }
 
         const data = await response.json();
-        return data;
+        return data.data;
     } catch (error) {
         console.error("Error fetching price history:", error);
         return null;

@@ -1,4 +1,4 @@
-export interface ITokenListItem {
+export interface ITokenListItemDTO {
     address: string;
     decimals: number;
     lastTradeUnixTime: number;
@@ -10,4 +10,9 @@ export interface ITokenListItem {
     symbol: string;
     v24hChangePercent: number;
     v24hUSD: number;
+}
+
+export interface IPtItem {
+    value: number;
+    unixTime: string;
 }

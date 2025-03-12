@@ -1,6 +1,6 @@
 import {Input, InputField, InputIcon, InputSlot} from "@/components/ui/input";
 import {CloseIcon, SearchIcon} from "@/components/ui/icon";
-import {Pressable} from "react-native";
+import {TouchableOpacity} from "react-native";
 
 interface IProps {
     searchText: string;
@@ -22,10 +22,10 @@ export function BullPenSearchField({searchText, onChangeText}: IProps) {
                 onChangeText={(newText) => onChangeText(newText)}
                 className="text-white"
             />
-            <InputSlot>
-                <Pressable onPress={() => onChangeText("")}>
+            <InputSlot onPress={() => onChangeText("")}>
+                <TouchableOpacity className={'p-2'} onPress={() => onChangeText("")}>
                     <InputIcon as={CloseIcon} className={'text-gray-50'} size="md" />
-                </Pressable>
+                </TouchableOpacity>
             </InputSlot>
         </Input>
     );

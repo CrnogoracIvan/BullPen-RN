@@ -1,14 +1,14 @@
 import {RefreshControl, ScrollView, Text, View} from "react-native";
 import {useEffect, useState} from "react";
 import {getTokenListService} from "@/services/services";
-import {ITokenListItem} from "@/utils/types";
+import {ITokenListItemDTO} from "@/utils/types";
 import {BullPenTokenCard} from "@/components/ui/bullpenTokenCard";
 import {BullPenTokenListEmptyState} from "../components/ui/bullpenTokenListEmptyState";
 import {BullPenSearchField} from "@/components/ui/bullpenSearchField";
 import {BullPenSkeleton} from "@/components/ui/bullpenSkeleton";
 import {BullPenErrorToast} from "@/components/ui/bullPenErrorToast";
 import {LineChart} from "react-native-gifted-charts";
-import CoinChart from "@/components/ui/bulletpenCoinChart";
+import BullPenCoinChart from "@/components/ui/bulletpenCoinChart";
 
 
 export default function Index() {
@@ -52,7 +52,7 @@ export default function Index() {
     }, [errorMessage]);
 
     useEffect(() => {
-        const filteredList = tokenList.filter((token:ITokenListItem)=>(token.address.includes(searchText)));
+        const filteredList = tokenList.filter((token:ITokenListItemDTO)=>(token.address.includes(searchText)));
         const isSearchInProgress = searchText.length > 0;
 
         if (!isSearchInProgress) {
@@ -83,7 +83,7 @@ export default function Index() {
         >
             {filteredTokenList.length === 0
                 ? <BullPenTokenListEmptyState searchInProgress={false}/>
-                : filteredTokenList.map((token: ITokenListItem) => (<BullPenTokenCard key={token.address} token={token}/>))
+                : filteredTokenList.map((token: ITokenListItemDTO) => (<BullPenTokenCard key={token.address} token={token}/>))
             }
         </ScrollView>
     )
@@ -102,7 +102,6 @@ export default function Index() {
   return (
     <View className={'flex flex-1 flex-col items-center justify-start'}>
 
-       <CoinChart/>
 
         <BullPenSearchField searchText={searchText} onChangeText={setSearchText} />
         {isLoading ? <BullPenSkeleton/> : renderListWrapper()}

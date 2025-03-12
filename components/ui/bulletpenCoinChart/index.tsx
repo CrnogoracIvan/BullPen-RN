@@ -1,27 +1,25 @@
 import React from 'react';
 import { View, Text, Dimensions } from 'react-native';
 import { LineChart } from 'react-native-gifted-charts';
+import {IPtItem} from "@/utils/types";
+import {unixTimeToMonthYear} from "@/utils/utils";
 
-const CoinChart = () => {
-    const ptData = [
-        { value: 168.43, date: '2023-07-01' },
-        { value: 237.67, date: '2023-07-15' },
-        { value: 188.87, date: '2023-08-01' },
-        { value: 231.64, date: '2023-08-15' },
-        { value: 148.12, date: '2023-09-01' },
-    ];
+interface IProps {
+    ptData: IPtItem[];
+}
 
-    const paddingForRemoval= 85
+const BullPenCoinChart = ({ptData}:IProps) => {
+    const paddingForRemoval= 80
     const screenWidth = Dimensions.get('window').width-paddingForRemoval;
     const spacing = (screenWidth+paddingForRemoval) / (ptData.length);
 
     return (
-        <View style={{ width: '100%', backgroundColor: 'transparent' }}>
+        <View style={{ width: '100%', backgroundColor: 'transparent', overflow:'hidden' }}>
             <LineChart
                 areaChart
                 data={ptData}
                 rotateLabel
-                width={screenWidth} // Use screen width
+                width={screenWidth}
                 hideDataPoints
                 color="#00ff83"
                 thickness={3}
@@ -29,17 +27,17 @@ const CoinChart = () => {
                 endFillColor="rgba(20,85,81,0.01)"
                 startOpacity={0.9}
                 endOpacity={0.2}
-                spacing={spacing} // Use calculated spacing
-                initialSpacing={0} // No extra space at the start
-                endSpacing={0} // No extra space at the end
+                spacing={spacing}
+                initialSpacing={0}
+                endSpacing={0}
                 noOfSections={6}
                 maxValue={300}
-                yAxisColor="gray" // Show y-axis
-                yAxisThickness={1} // Show y-axis
-                yAxisTextStyle={{ color: 'white' }} // Show y-axis labels
-                xAxisColor="gray" // Show x-axis
-                xAxisThickness={1} // Show x-axis
-                xAxisLabelTextStyle={{ color: 'white' }} // Show x-axis labels
+                yAxisColor="gray"
+                yAxisThickness={1}
+                yAxisTextStyle={{ color: 'white' }}
+                xAxisColor="gray"
+                xAxisThickness={1}
+                xAxisLabelTextStyle={{ color: 'white' }}
                 rulesType="solid"
                 rulesColor="gray"
                 pointerConfig={{
@@ -53,8 +51,7 @@ const CoinChart = () => {
                     activatePointersOnLongPress: true,
                     autoAdjustPointerLabelPosition: true,
                     pointerLabelComponent: items => {
-                        const isLastItem = items[0].date === ptData[ptData.length - 1].date;
-
+                        const isLastItem = items[0].unixTime === ptData[ptData.length - 1].unixTime;
                         return (
                             <View
                                 style={{
@@ -62,14 +59,14 @@ const CoinChart = () => {
                                     width: 120,
                                     justifyContent: 'center',
                                     alignItems: 'center',
-                                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                                    backgroundColor: '#05121a',
                                     borderRadius: 10,
                                     padding: 10,
                                     marginLeft: isLastItem ? -80 : 0,
                                 }}>
                                 {/* Date */}
                                 <Text style={{ color: 'white', fontSize: 12, marginBottom: 6, textAlign: 'center' }}>
-                                    {items[0].date}
+                                    {unixTimeToMonthYear(items[0].unixTime)}
                                 </Text>
 
                                 {/* Value */}
@@ -93,4 +90,4 @@ const CoinChart = () => {
     );
 };
 
-export default CoinChart;
+export default BullPenCoinChart;
