@@ -22,7 +22,7 @@ export function BullPenSearchField({searchText, onChangeText}: IProps) {
                 onChangeText={(newText) => onChangeText(newText)}
                 className="text-white"
             />
-            <InputSlot onPress={() => onChangeText("")}>
+            <InputSlot>
                 <TouchableOpacity className={'p-2'} onPress={() => onChangeText("")}>
                     <InputIcon as={CloseIcon} className={'text-gray-50'} size="md" />
                 </TouchableOpacity>
