@@ -11,7 +11,10 @@ interface IProps {
 const BullPenCoinChart = ({ptData}:IProps) => {
     const paddingForRemoval= 80
     const screenWidth = Dimensions.get('window').width-paddingForRemoval;
-    const spacing = (screenWidth+paddingForRemoval) / (245);
+    const chartDataWidth = 116 // for 3 months
+    const spacing = (screenWidth+paddingForRemoval) / chartDataWidth;
+
+    const maxValue = Math.round(Math.max(...ptData.map(o => o.value))) * 1.5;
 
     return (
         <View style={{ width: screenWidth, backgroundColor: 'transparent', overflow:'hidden' }}>
@@ -30,8 +33,8 @@ const BullPenCoinChart = ({ptData}:IProps) => {
                 spacing={spacing}
                 initialSpacing={0}
                 endSpacing={0}
-                noOfSections={8}
-                maxValue={400}
+                noOfSections={6}
+                maxValue={maxValue}
                 yAxisColor="gray"
                 yAxisThickness={1}
                 yAxisTextStyle={{ color: 'white' }}

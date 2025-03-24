@@ -7,10 +7,10 @@ export function formatNumber(value: number): string {
 
 export function getUnixValues() {
     const todayUnix = Math.floor(Date.now() / 1000)
-    const sixMonthsAgoUnix = Math.floor((Date.now() - 6 * 30 * 24 * 60 * 60 * 1000) / 1000)
+    const threeMonthsAgoUnix = Math.floor((Date.now() - 3 * 30 * 24 * 60 * 60 * 1000) / 1000)
     return {
         todayUnix,
-        sixMonthsAgoUnix,
+        threeMonthsAgoUnix,
     }
 }
 
